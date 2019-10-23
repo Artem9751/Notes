@@ -1,21 +1,32 @@
 {% extends 'base.html' %}
 
-{% block title %}Articles{% endblock title %}
+{% block title %}Notes{% endblock title %}
 
 {% block content %}
- {% for note in object_list %}
+
+ <form method="post"> {% csrf_token %}
+  {{ noteform.as_p }}
+  <p><button type="submit">search topic</button> Back to <a href="{% url 'note_list' %}">All Notes</a>.</p>
+ </form>
+
+ {% for note in notes %}
   <div class="card">
    <div class="card-header">
     <span class="font-weight-bold">{{ note.title }}</span> &middot;
     <span class="text-muted">by {{ note.author }} |
     {{ note.date }}</span>
    </div>
+   <div>
+    {% for topic in note.topics.all %}
+     {{ topic.topic_name }}
+    {% endfor %}
+   </div>
    <div class="card-body">
     {{ note.body }}
    </div>
    <div class="card-footer text-center text-muted">
-    <a href="{% url 'note_edit' note.pk %}">Edit</a> |
-    <a href="{% url 'note_delete' note.pk %}">Delete</a>
+     <a href="{% url 'note_edit' note.pk %}">Edit</a> |
+     <a href="{% url 'note_delete' note.pk %}">Delete</a>
    </div>
   </div>
   <br />

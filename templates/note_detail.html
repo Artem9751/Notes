@@ -7,8 +7,8 @@
   <p>by {{ object.author }} | {{ object.date }}</p>
   <p>{{ object.body }}</p>
 </div>
- <p><a href="{% url 'note_edit' note.pk %}">Edit</a> |
-     <a href="{% url 'note_delete' note.pk %}">Delete</a></p>
+ <p><a href="{% url 'note_edit' object.pk %}">Edit</a> |
+     <a href="{% url 'note_delete' object.pk %}">Delete</a></p>
  <p>Back to <a href="{% url 'note_list' %}">All Notes</a>.</p>
 
 {% endblock content %}
